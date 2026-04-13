@@ -1,0 +1,234 @@
+@charset "UTF-8";
+
+/* カスタムプロパティ
+---------------------------------- */
+:root {
+    --color-text: #333333;
+    --color-warning: #ff4d4d;
+    --color-grey: #eeeeee;
+    --color-accent: #e67e22;
+    --color-accent-bg: color-mix(in srgb, var(--color-accent), #ffffff 80%);
+
+    --s-xxs: 5px;
+    --s-xs: 8px;
+    --s-sm: 13px;
+    --s-md: 21px;
+    --s-lg: 34px;
+    --s-xl: 55px;
+    --s-xxl: 89px;
+}
+
+/* リセット
+---------------------------------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+/* スクリーン用スタイル
+---------------------------------- */
+
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+    line-height: 1.8;
+    color: var(--color-text);
+    padding-block: var(--s-md);
+    counter-reset: section;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Times New Roman';
+    letter-spacing: 0.1em;
+}
+
+nav {
+    line-height: 1;
+
+    ul {
+        display: flex;
+        gap: var(--s-sm);
+
+        a {
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+    }
+}
+
+code {
+    background-color: var(--color-grey);
+    display: inline-block;
+    line-height: 100%;
+    padding: 5px 8px;
+    margin-inline: 3px;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.container {
+    width: clamp(345px, 114.366px + 61.502vw, 1000px);
+    margin-inline: auto;
+}
+
+h1 {
+    font-size: 1.8rem;
+    border-left: 8px solid var(--color-accent);
+    padding-inline-start: var(--s-sm);
+    background-color: var(--color-accent-bg);
+    padding-block: var(--s-sm);
+    line-height: 1.6;
+}
+
+h1+* {
+    margin-block-start: var(--s-md);
+}
+
+h2 {
+    font-size: 1.4rem;
+
+    span {
+        background-image: linear-gradient(to bottom, transparent 60%, var(--color-accent-bg) 20%);
+    }
+
+    &::before {
+        counter-increment: section;
+        content: counter(section) '.';
+        margin-inline-end: var(--s-xxs);
+    }
+}
+
+h2+* {
+    margin-block-start: var(--s-md);
+}
+
+
+article {
+    &>section:first-of-type {
+        margin-block-start: var(--s-xl);
+    }
+
+    &>section+section {
+        margin-block-start: var(--s-lg);
+    }
+
+    p+p {
+        margin-block-start: var(--s-md);
+    }
+
+    footer {
+        margin-block-start: var(--s-xl);
+    }
+
+    dl {
+        margin-block-start: var(--s-md);
+    }
+
+    dd>dl {
+        margin-block-start: 0;
+
+    }
+
+    dt {
+        font-weight: bold;
+    }
+
+    dd+dt {
+        margin-block-start: var(--s-md);
+    }
+
+    dd {
+        padding-inline-start: var(--s-md);
+        margin-block-start: var(--s-sm);
+    }
+}
+
+.list {
+    list-style-type: square;
+    padding-inline-start: 1.5rem;
+}
+
+.no-print-area {
+    border: 2px solid var(--color-warning);
+    padding: var(--s-md);
+    background-color: color-mix(in srgb, var(--color-warning), #fff 90%);
+    margin-block: var(--s-xl);
+}
+
+/* 印刷用スタイル
+---------------------------------- */
+@media print {
+
+    /* 印刷時は非表示 */
+    .no-print-area {
+        display: none;
+    }
+
+    /* 印刷時は非表示 */
+    header{
+        display: none;
+    }
+
+    /* インクの節約のために文字の色を黒にする */
+    body {
+        color: black;
+    }
+
+    /* インクの節約のために、べた塗やボーダーを消す */
+    h1 {
+        background-color: initial;
+        border: initial;
+        padding-inline: 0;
+    }
+
+    h2 {
+        span {
+            background-image: initial;
+        }
+    }
+
+    /* セクションの途中で改行されないようにする */
+    section {
+        break-inside: avoid-page;
+    }
+
+    a {
+        color: var(--color-text);
+        text-decoration: none;
+    }
+
+    /* リンクのURLを疑似要素で表示(紙ではクリック出来ないため) */
+    a::after {
+        content: ' [' attr(href)'] ';
+        margin-inline-start: var(--s-xs);
+        text-decoration: underline;
+    }
+}
+
+/* ページ設定
+---------------------------------- */
+@page {
+    /* A4サイズ 縦方向 */
+    size: A4 portrait;
+    /* ページのマージンを設定(単位は㎜にすること) */
+    margin: 20mm 10mm;
+}

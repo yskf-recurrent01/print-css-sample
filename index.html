@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>印刷用CSSの基本ガイド - MDNリファレンス準拠</title>
+	<link rel="stylesheet" href="style.css">
+	<!-- 印刷用のスタイルシートを別途用意して読み込む方法 -->
+	<link rel="stylesheet" href="print.css" media="print">
+</head>
+
+<body>
+	<header>
+		<div class="header-inner container">
+			<p class="logo">LOGO</p>
+			<nav>
+				<ul>
+					<li><a href="#">home</a></li>
+					<li><a href="#">about</a></li>
+					<li><a href="#">contact</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="container">
+		<div class="no-print-area">
+			<strong>【スクリーンのみ表示】</strong>この赤いエリアは、印刷プレビューでは<code>display:none;</code>で消える設定になっています。
+		</div>
+		<main>
+			<article>
+				<h1>印刷用CSSの基本：@media print と @page ルール</h1>
+				<p>Webサイトの情報を紙に印刷したり、PDFとして保存したりする際、画面表示と同じレイアウトでは読みづらいことがあります。CSSには、印刷時専用のスタイルを定義するための強力なツールが用意されています。
+				</p>
+				<section>
+					<h2><span>@media print（印刷用メディアクエリ）</span></h2>
+					<p><code>@media print</code> は、メディアクエリの一種で、プリンターや印刷プレビュー画面などの「印刷メディア」に対してのみ適用されるスタイルを指定します。</p>
+					<dl>
+						<dt>不要な要素の非表示</dt>
+						<dd>Webサイト特有のナビゲーションメニュー、サイドバー、広告、フッターのボタンなどは印刷時には不要です。これらを <code>display: none;</code>
+							で非表示にすることで、本文の内容に集中させることができます。
+						</dd>
+						<dt>色の調整とインクの節約</dt>
+						<dd>画面では映える暗い背景や鮮やかな色は、印刷時にはインクを大量に消費し、視認性も悪くなります。背景を白、文字を黒に設定し直すのが一般的です。</dd>
+						<dt>リンクURLの書き出し</dt>
+						<dd>紙の上ではリンクをクリックできないため、CSSの疑似要素（<code>::after</code>）を使って、リンクテキストの横にURL（<code>href</code>
+							属性の内容）を表示させるテクニックがよく使われます。</dd>
+					</dl>
+				</section>
+				<section>
+					<h2><span>@page（ページアットルール）</span></h2>
+					<p><code>@page</code> ルールは、文書が印刷される際の「ページボックス」そのものに対する設定を行います。通常の要素に対するスタイルではなく、紙のサイズや余白を制御します。</p>
+					<dl>
+						<dt><code>size</code>（用紙サイズと向き）</dt>
+						<dd><code>size: A4;</code> や <code>size: landscape;</code>（横向き）のように、印刷される用紙の仕様を指定できます。</dd>
+						<dt><code>margin</code>（ページ余白）</dt>
+						<dd>ブラウザがデフォルトで設定している印刷余白を上書きし、コンテンツが紙の端に寄りすぎないよう調整できます。</dd>
+						<dt>ページ擬似クラス</dt>
+						<dd>
+							<dl>
+								<dt><code>:first</code></dt>
+								<dd>最初のページだけに異なる余白を設定する。</dd>
+								<dt><code>:left</code> / <code>:right</code></dt>
+								<dd>見開き印刷を想定して、左ページと右ページで余白の左右を変える（ノドを空ける）といった設定が可能です。</dd>
+							</dl>
+						</dd>
+					</dl>
+				</section>
+				<section>
+					<h2><span>改ページの制御</span></h2>
+					<p>長いコンテンツを印刷する場合、中途半端な場所で改ページされないよう制御することも重要です。</p>
+					<dl>
+						<dt><code>break-before</code> / <code>break-after</code></dt>
+						<dd>特定の要素（<code>h2</code>の見出しなど）の直前や直後で強制的に改ページさせます。</dd>
+						<dt><code>break-inside: avoid</code></dt>
+						<dd>図表やリストが複数のページにまたがって分割されるのを防ぎます。</dd>
+					</dl>
+				</section>
+				<section>
+					<h2><span>まとめ</span></h2>
+					<p><code>@media print</code> で「印刷する中身」を整理し、<code>@page</code>
+						で「紙のレイアウト」を整えることで、ユーザーにとって親切で読みやすい印刷用ページを提供できます。
+					</p>
+				</section>
+				<footer>
+					<p>出典</p>
+					<ul class="list">
+						<li><a href="https://developer.mozilla.org/ja/docs/Web/CSS/Reference/At-rules/@page">MDN Web Docs -
+								@page</a></li>
+						<li><a href="https://developer.mozilla.org/ja/docs/Web/CSS/Guides/Media_queries/Using">メディアクエリの使用</a></li>
+					</ul>
+
+				</footer>
+			</article>
+	</div>
+	</main>
+
+</body>
+
+</html>
