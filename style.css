@@ -191,6 +191,7 @@ article {
     /* インクの節約のために文字の色を黒にする */
     body {
         color: black;
+        background-color: white;
     }
 
     /* インクの節約のために、べた塗やボーダーを消す */
@@ -206,7 +207,7 @@ article {
         }
     }
 
-    /* セクションの途中で改行されないようにする */
+    /* セクションの途中で改ページされないようにする */
     section {
         break-inside: avoid-page;
     }
